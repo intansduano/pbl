@@ -31,6 +31,9 @@ $route['grading'] = 'Vidio/grading';
 $route['pbl-edit/(:any)'] = 'Vidio/edit/$1';
 $route['project-base-learning/(:any)'] = 'Homepage/pbl/$1';
 $route['vidios/(:any)'] = 'Homepage/vidios/$1';
+$route['comment'] = 'comment/index';
+$route['comment/add'] = 'comment/add';
+$route['comment/fetch'] = 'comment/fetch';
 
 //reviewer
 $route['pbl-review/(:any)'] = 'Vidio/review/$1';
