@@ -98,7 +98,7 @@
             </table>
         </div>
 
-
+        
         <h2 class="text-2xl font-bold mb-4 mt-4">Komentar</h2>
         <!-- Similar Videos -->
         <div id="display-chat" class="mt-7 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-20 gap-y-5">
@@ -114,7 +114,6 @@
 </body>
 
 </html>
-
 <input type="text" value="<?= $pbl->no_pbl ?>" id="no_pbl" class="hidden">
 <input type="text" value="<?= $liked ?>" id="liked" class="hidden">
 <input type="text" value="<?= $pbl->jurusan ?>" id="jurusan" class="hidden">
