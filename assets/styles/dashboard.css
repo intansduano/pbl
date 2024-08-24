@@ -1,0 +1,19 @@
+/*Font*/
+@import url('https://fonts.googleapis.com/css2?family=Heebo&family=Oswald&family=Rubik&display=swap');
+
+@media (min-width: 768px) {
+	.content-wrapper{
+		padding-top: 7%;
+	}
+
+	.navbar-nav > li{
+	  padding-left: 10px;
+	  padding-right: 10px;
+	}
+}
+
+@media (max-width: 576px) {
+	.content-wrapper{
+		padding-top: 15%;
+	}
+}

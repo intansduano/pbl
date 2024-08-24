@@ -1,0 +1,30 @@
+Sarjana Terapan Teknik Informatika
+Sarjana Terapan Teknik Listrik
+Diploma Tiga Teknik Listrik
+Diploma Tiga Teknik Komputer
+
+note 
+1. vidio => video
+2. tambah form penilaian berdasarkan panduan 
+3. 
+
+
+form 
+1. judul pbl 
+2. pengampuh mata kuliah (nama dosen )
+3. profil mahasiswa yang telibat 
+4. profile mitra
+5  latar belakang pemilihan proyek
+6. latar belakang penentuan lokasi
+7. langkah langkah pbl
+8. learning process & skills 
+9.
+
+
+tambahan 
+1. redesain sesuai model 
+2. tambah input dosen pembina by search 
+link: https://www.figma.com/file/7yc8jTXtcNeW6QvxCjRw9O/UI-PBL?type=design&node-id=0%3A1&mode=design&t=9K0FY44xaJ8ezxAw-1
+
+bug report 
+1. bug search vidio di halaman dosen ketika melakukan pencarian vidio milik user lain muncul di hasil pencarian 
