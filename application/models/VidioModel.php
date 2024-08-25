@@ -25,6 +25,13 @@ class VidioModel extends CI_Model{
         return $query;
     }
 
+    public function getCommentById($id_comment)
+    {
+        $this->db->where('id_comment', $id_comment);
+        $query = $this->db->get('comment_pbl'); // 'comments' adalah nama tabel di database
+        return $query->row(); // Mengembalikan satu baris data sebagai objek
+    }
+
     public function cekSlug($input_data) {
         // Cek keberadaan data dengan menggunakan query database
         $query = $this->db->get_where('pbl', array('slug' => $input_data));
@@ -157,6 +164,12 @@ class VidioModel extends CI_Model{
         );
         $this->db->where('no_pbl', $pbl);
         $this->db->update('pbl', $data);
+    }
+
+    public function deleteComment($id_comment)
+    {
+        $this->db->where('id_comment', $id_comment);
+        return $this->db->delete('comments'); // 'comments' adalah nama tabel di database
     }
 
     public function getAllGradingData() {

@@ -895,6 +895,29 @@ class Vidio extends CI_Controller {
         echo json_encode($output);
 	}
 
+	public function deleteComment()
+	{
+		$id_comment = $this->input->post('id_comment');
+		$user_id = $_SESSION['id_user'];
+
+		// Ambil data komentar berdasarkan id_comment
+		$comment = $this->VidioModel->getComment($id_comment);
+
+		if ($comment && $comment->userid == $user_id) {
+			// Hanya pengguna yang membuat komentar bisa menghapusnya
+			$result = $this->VidioModel->deleteComment($id_comment);
+
+			if ($result) {
+				echo json_encode(['success' => true]);
+			} else {
+				echo json_encode(['success' => false]);
+			}
+		} else {
+			// Pengguna tidak diizinkan menghapus komentar ini
+			echo json_encode(['success' => false, 'message' => 'Anda tidak diizinkan menghapus komentar ini.']);
+		}
+	}
+
 	public function extractLink(){
 		$link = $this->input->post("link");
 		// $link = "<iframe width='560' height='315' src='https://www.youtube.com/embed/NZGHXy1IAHM?si=qyAoxb3Bw0HYECiC' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' allowfullscreen></iframe>";

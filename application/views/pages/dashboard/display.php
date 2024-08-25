@@ -98,9 +98,16 @@
             </table>
         </div>
 
-        
+
         <h2 class="text-2xl font-bold mb-4 mt-4">Komentar</h2>
-        <!-- Similar Videos -->
+        <!-- Comment -->
+        <div class="mb-4">
+            <textarea id="comment" class="w-full p-2 border rounded-md" placeholder="Masukkan komentar Anda"></textarea>
+        </div>
+
+        <button onclick="sendComment()" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">
+            Kirim Komentar
+        </button>
         <div id="display-chat" class="mt-7 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-20 gap-y-5">
         </div>
 
@@ -117,8 +124,6 @@
 <input type="text" value="<?= $pbl->no_pbl ?>" id="no_pbl" class="hidden">
 <input type="text" value="<?= $liked ?>" id="liked" class="hidden">
 <input type="text" value="<?= $pbl->jurusan ?>" id="jurusan" class="hidden">
-<input type="text" value="<?= $comment->id_comment ?>" id="display-chat" class="hidden">
-
 
 
 <script>
@@ -128,18 +133,21 @@
     });
 
     function sendComment() {
-        var pbl = $("#pbl").val();
+        var pbl = $("#no_pbl").val();
         var Comment = $("#comment").val();
-        if (login == "") {
+        var login = <?= json_encode($this->session->userdata('logged_in')); ?>; // Memeriksa apakah pengguna sudah login
+
+        if (!login) {
             Swal.fire({
                 title: "Gagal",
                 text: "Anda Tidak Sedang Login",
                 icon: "error"
             });
         } else {
-            if (Comment == "") {
+            if (Comment.trim() == "") {
                 Swal.fire({
                     title: "Silahkan Memasukkan Komentar Anda",
+                    icon: "warning",
                     showClass: {
                         popup: `
                     animate__animated
@@ -174,34 +182,87 @@
     }
 
     function showComment() {
-        var pbl = $("#pbl").val();
+        var pbl = $("#no_pbl").val();
         $.ajax({
             url: "<?php echo base_url('Vidio/showComment/'); ?>" + pbl,
             type: "GET",
             dataType: 'json',
             success: function(response) {
-                $("#display-chat").empty();
-                $.each(response.data, function(index, item) {
-                    $("#display-chat").append(`
-                    <div class="bg-white border relative p-4 rounded-md shadow-md pb-16">
-                    <input value="${item.id_comment}" class="hidden" id="comment-${index}" type="text">
-                        <div class="flex items-center mb-4">
-                            <img src="${item.profile}" class="w-8 h-8 rounded-full mr-2">
-                            <div>
-                                <h3 class="text-sm font-semibold">${item.nama_pengguna} </h3>
+                if (response && response.data) {
+                    $("#display-chat").empty(); // Kosongkan div sebelum menambahkan komentar
+                    $.each(response.data, function(index, item) {
+                        // Periksa apakah data komentar memiliki nilai yang diharapkan
+                        if (item.id_comment && item.profile && item.nama_pengguna && item.tanggal && item.isi) {
+                            $("#display-chat").append(`
+                            <div class="bg-white border relative p-4 rounded-md shadow-md pb-16">
+                                <input value="${item.id_comment}" class="hidden" id="comment-${index}" type="text">
+                                <div class="flex items-center mb-4">
+                                    <img src="${item.profile}" class="w-8 h-8 rounded-full mr-2" alt="User Profile">
+                                    <div>
+                                        <h3 class="text-sm font-semibold">${item.nama_pengguna}</h3>
+                                    </div>
+                                    <div class="absolute right-2 top-1">
+                                        <span class="text-xs text-gray-600">${item.tanggal}</span>
+                                    </div>
+                                </div>
+                                <div class="h-auto w-full mb-2">
+                                    <p class="text-gray-700">${item.isi}</p>
+                                </div>
+                                <div id="comment-card-${index}" class="absolute bottom-0 text-center h-10 w-20 right-1 mx-auto">
+                                <button onclick="deleteComment('${item.id_comment}')" class="text-red-500 hover:text-red-700">Hapus</button>
+                                </div>
                             </div>
-                            <div class="absolute right-2 top-1">
-                            <span class="text-xs text-gray-600">${item.tanggal}</span>
-                            </div>
-                        </div>
-                        <div class="h-auto w-full mb-2">
-                        <p class="text-gray-700">${item.isi}</p>
-                        </div>
-                        <div id="comment-card-${index}" class="absolute bottom-0 text-center h-10 w-20 right-1 mx-auto ">
-                        </div>
-                    </div>
+                        `);
+                        } else {
+                            console.error("Data komentar tidak lengkap:", item);
+                        }
+                    });
+                } else {
+                    console.error("Data komentar tidak ditemukan atau format tidak sesuai");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Gagal memuat komentar:", error);
+                // Anda bisa menambahkan pesan error ke pengguna di sini jika diinginkan
+            }
+        });
+    }
 
-                                    `);
+    function deleteComment(id_comment) {
+        Swal.fire({
+            title: "Apakah Anda yakin?",
+            text: "Komentar ini akan dihapus secara permanen!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, hapus!",
+            cancelButtonText: "Batal"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "<?php echo base_url('Vidio/deleteComment'); ?>",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        id_comment: id_comment
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire(
+                                "Dihapus!",
+                                "Komentar Anda telah dihapus.",
+                                "success"
+                            );
+                            showComment(); // Refresh komentar setelah penghapusan
+                        } else {
+                            Swal.fire(
+                                "Gagal!",
+                                response.message || "Terjadi kesalahan saat menghapus komentar.",
+                                "error"
+                            );
+                        }
+                    }
                 });
             }
         });
