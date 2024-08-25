@@ -21,7 +21,7 @@
       <div class="max-w-screen flex flex-wrap items-center justify-between border mx-auto md:px-10 p-4">
         <a href="<?=base_url('/');?>" class="flex decoration-none items-center">
             <img src="<?=base_url('assets/images/logo/logos/polimdo.png');?>" class="h-16 w-16 mr-3" alt="codewithfaraz Logo" />
-            <span class="text-logo">Project Base Learning</span>
+            <span class="text-logo">Project Based Learning</span>
         </a>
         <button id="navbar-toggle" data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-dropdown" aria-expanded="false">
             <span class="sr-only">Open main menu</span>

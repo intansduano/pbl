@@ -13267,6 +13267,25 @@
       /* Warna handle saat hover */
     }
 
+    ::-webkit-scrollbar {
+      width: 10px;
+      background-color: #F3F4F6;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: grey;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    .scrollbar {
+      scrollbar-color: transparent transparent;
+      /* Warna thumb dan track scrollbar */
+      scrollbar-width: thin;
+      /* Lebar scrollbar */
+    }
 
     @media screen and (min-width: 769px),
     print {
@@ -13310,7 +13329,7 @@
 <body class="min-h-screen">
   <div class="hero-body">
     <div class="container">
-      <div class="columns overflow-scroll">
+      <div class="columns">
         <div class="column">
           <h1 class="text-logo">
             <p class="navbar-item uppercase place-items-center">PROJECT BASED LEARNING</p>

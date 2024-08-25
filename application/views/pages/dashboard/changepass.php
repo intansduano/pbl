@@ -34,7 +34,7 @@ if (isset($message)) {
         <main class=" flex-1 py-10  px-5 sm:px-10 ">
 
             <header class=" font-bold text-lg flex items-center  gap-x-3 md:hidden mb-12 relative pl-10">
-                <span id="button-sidebar" onclick="MenuSidebar();" class="mr-6 transition-all duraton-1000 hover:text-red z-50 absolute left-0">
+                <span id="button-sidebar" onclick="MenuSidebar();" class="mr-6 transition-all duraton-1000 hover:text-blue z-50 absolute left-0">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-gray-700 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7" />
                       </svg>

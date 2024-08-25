@@ -32,11 +32,11 @@
   <style>
      ::-webkit-scrollbar {
     width: 10px;
-    background-color: transparent;
+    background-color:#F3F4F6;
   }
   
   ::-webkit-scrollbar-thumb {
-    background-color: transparent;
+    background-color: grey;
   }
   
   ::-webkit-scrollbar-track {

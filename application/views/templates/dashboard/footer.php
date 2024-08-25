@@ -7,7 +7,7 @@
       </div>
       <div>
         <h2 class="text-gray-900 text-lg font-bold mb-4">Services</h2>
-        <p class="text-sm">Menyediakan Platform Project Base Learning</p>
+        <p class="text-sm">Menyediakan Platform Project Based Learning</p>
       </div>
       <div>
         <h2 class="text-lg text-gray-900 font-bold mb-4">Contact Us</h2>

@@ -12,7 +12,7 @@
 
     <div class="container mx-auto mt-8 p-4">
         <!-- Video Player -->
-        <div class="relative rounded-lg overflow-hidden mb-8">
+        <div class="relative rounded-lg overflow-hidden mb-8 custom-card">
             <!-- Video -->
             <iframe class="w-full h-[55vh]" src="<?= $pbl->link ?>" frameborder="0" allowfullscreen></iframe>
         </div>
@@ -58,60 +58,62 @@
                     <p class="text-gray-600 my-1 font-semibold uppercase"><?= $dosen->firstname . ' ' . $dosen->lastname ?></p>
                 </div>
             </div>
-            <div class="text-gray-600 my-1 font-bold uppercase">Deskripsi / Latar Belakang</div>
+
+            <div class="text-gray-600 my-1 font-bold uppercase">Mahasiswa Terlibat</div>
+
+            <div class="relative overflow-x-auto text-center">
+                <table class="w-full text-sm text-left rtl:text-center text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-center rounded-s-lg">
+                                Nama Mahasiswa
+                            </th>
+                            <th scope="col" class="px-6 text-center py-3">
+                                Program Studi
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-center rounded-e-lg">
+                                NIM
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $index = 0;
+                        foreach ($mahasiswa->result() as $item) {
+                            $index++; ?>
+                            <tr class="bg-white dark:bg-gray-800 text-center">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <?= $item->nama ?>
+                                </th>
+                                <td class="px-6 py-4">
+                                    <?= $item->prodi ?>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <?= $item->nim ?>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-gray-600 my-1 font-bold uppercase pt-10 pb-3">Deskripsi / Latar Belakang</div>
             <p class="text-gray-600"><?= html_entity_decode($pbl->deskripsi) ?></p>
         </div>
-        <div class="text-gray-600 my-1 font-bold uppercase">Mahasiswa Terlibat</div>
-
-        <div class="relative overflow-x-auto text-center">
-            <table class="w-full text-sm text-left rtl:text-center text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3 text-center rounded-s-lg">
-                            Nama Mahasiswa
-                        </th>
-                        <th scope="col" class="px-6 text-center py-3">
-                            Program Studi
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-center rounded-e-lg">
-                            NIM
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $index = 0;
-                    foreach ($mahasiswa->result() as $item) {
-                        $index++; ?>
-                        <tr class="bg-white dark:bg-gray-800 text-center">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                <?= $item->nama ?>
-                            </th>
-                            <td class="px-6 py-4">
-                                <?= $item->prodi ?>
-                            </td>
-                            <td class="px-6 py-4">
-                                <?= $item->nim ?>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
 
 
-        <h2 class="text-2xl font-bold mb-4 mt-4">Komentar</h2>
+
+        <h2 class="text-2xl font-bold mb-4 mt-4 pt-7">Komentar</h2>
         <!-- Comment -->
-        <div class="mb-4">
-            <textarea id="comment" class="w-full p-2 border rounded-md" placeholder="Masukkan komentar Anda"></textarea>
+        <div class="mb-4 container border custom-card p-4 shadow-md rounded-lg">
+            <textarea id="comment" class="w-full p-2 border rounded-lg" placeholder="Masukkan komentar Anda"></textarea>
         </div>
 
-        <button onclick="sendComment()" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">
+        <button onclick="sendComment()" class="bg-blue-500 custom-card text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
             Kirim Komentar
         </button>
         <div id="display-chat" class="mt-7 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-20 gap-y-5">
         </div>
 
-        <h2 class="text-2xl font-bold mb-4 mt-4">Video Serupa</h2>
+        <h2 class="text-2xl font-bold mb-4 mt-4 pt-10">Video Serupa</h2>
         <!-- Similar Videos -->
         <div id="related-vidio" class="mt-7 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-20 gap-y-5">
         </div>
@@ -192,9 +194,9 @@
                     $("#display-chat").empty(); // Kosongkan div sebelum menambahkan komentar
                     $.each(response.data, function(index, item) {
                         // Periksa apakah data komentar memiliki nilai yang diharapkan
-                        if (item.id_comment && item.profile && item.nama_pengguna && item.tanggal && item.isi) {
+                        if (item.id_comment && item.nama_pengguna && item.tanggal && item.isi) {
                             $("#display-chat").append(`
-                            <div class="bg-white border relative p-4 rounded-md shadow-md pb-16">
+                            <div class="bg-white relative custom-card p-4 rounded-lg shadow-md pb-5">
                                 <input value="${item.id_comment}" class="hidden" id="comment-${index}" type="text">
                                 <div class="flex items-center mb-4">
                                     <img src="${item.profile}" class="w-8 h-8 rounded-full mr-2" alt="User Profile">
@@ -202,14 +204,14 @@
                                         <h3 class="text-sm font-semibold">${item.nama_pengguna}</h3>
                                     </div>
                                     <div class="absolute right-2 top-1">
-                                        <span class="text-xs text-gray-600">${item.tanggal}</span>
+                                        <i><span class="bg-blue-100 rounded-full text-xs text-gray-600 p-5 m-2 mr-4">${item.tanggal}</span></i>
                                     </div>
                                 </div>
-                                <div class="h-auto w-full mb-2">
+                                <div class="h-auto w-full mb-2 ml-10">
                                     <p class="text-gray-700">${item.isi}</p>
                                 </div>
                                 <div id="comment-card-${index}" class="absolute bottom-0 text-center h-10 w-20 right-1 mx-auto">
-                                <button onclick="deleteComment('${item.id_comment}')" class="text-red-500 hover:text-red-700">Hapus</button>
+                               
                                 </div>
                             </div>
                         `);
@@ -240,12 +242,14 @@
             cancelButtonText: "Batal"
         }).then((result) => {
             if (result.isConfirmed) {
+                var no_pbl = $("#no_pbl").val(); // pastikan no_pbl ada di elemen dengan ID no_pbl
                 $.ajax({
                     url: "<?php echo base_url('Vidio/deleteComment'); ?>",
                     type: "POST",
                     dataType: "json",
                     data: {
-                        id_comment: id_comment
+                        id_comment: id_comment,
+                        no_pbl: no_pbl
                     },
                     success: function(response) {
                         if (response.success) {
@@ -335,3 +339,25 @@
 </script>
 <script src="https://cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
 </script>
+
+<style>
+    ::-webkit-scrollbar {
+        width: 10px;
+        background-color: #F3F4F6;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: grey;
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    .scrollbar {
+        scrollbar-color: transparent transparent;
+        /* Warna thumb dan track scrollbar */
+        scrollbar-width: thin;
+        /* Lebar scrollbar */
+    }
+</style>

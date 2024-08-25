@@ -114,3 +114,26 @@ if (isset($message)) {
     }
 </script>
 <script src="<?= base_url('assets/dashboard/dist/js/adminlte.min.js') ?>"></script>
+
+<style>
+    ::-webkit-scrollbar {
+        width: 10px;
+        background-color: #F3F4F6;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: grey;
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    .scrollbar {
+        scrollbar-color: transparent transparent;
+        /* Warna thumb dan track scrollbar */
+        scrollbar-width: thin;
+        /* Lebar scrollbar */
+    }
+
+    </style>

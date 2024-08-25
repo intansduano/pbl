@@ -899,9 +899,12 @@ class Vidio extends CI_Controller {
 	{
 		$id_comment = $this->input->post('id_comment');
 		$user_id = $_SESSION['id_user'];
+		$no_pbl = $this->input->post('no_pbl');
+		$user_id = $_SESSION['id_user'];
+		log_message('debug', 'deleteComment dipanggil dengan id_comment: ' . $id_comment . ' oleh user_id: ' . $user_id);
 
 		// Ambil data komentar berdasarkan id_comment
-		$comment = $this->VidioModel->getComment($id_comment);
+		$comment = $this->VidioModel->getComment($no_pbl, $id_comment);
 
 		if ($comment && $comment->userid == $user_id) {
 			// Hanya pengguna yang membuat komentar bisa menghapusnya
@@ -910,7 +913,7 @@ class Vidio extends CI_Controller {
 			if ($result) {
 				echo json_encode(['success' => true]);
 			} else {
-				echo json_encode(['success' => false]);
+				echo json_encode(['success' => false, 'message' => 'Gagal menghapus komentar.']);
 			}
 		} else {
 			// Pengguna tidak diizinkan menghapus komentar ini
