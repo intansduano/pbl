@@ -44,3 +44,7 @@ $route['profile-admin'] = 'Admin/profile';
 $route['add-user'] = 'Admin/addUser';
 $route['edit-user/(:any)'] = 'Admin/editPengguna/$1';
 $route['change-pass-admin'] = 'Admin/change_pass';
+
+$route['contact'] = 'contact';
+$route['contact/send'] = 'contact/send';
+$route['kontak'] = 'Homepage/kontak';
